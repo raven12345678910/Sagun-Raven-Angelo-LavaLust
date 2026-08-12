@@ -1,4 +1,4 @@
-<?php
+<<?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
@@ -6,66 +6,91 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to LavaLust</title>
-    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <title>SUPER RAVEN — Developer Portal</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700;800&family=Unbounded:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Unbounded:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         :root {
-            --lava: #dd4814;
-            --lava-dim: #b83a10;
-            --lava-glow: rgba(221,72,20,0.15);
-            --lava-glow-strong: rgba(221,72,20,0.25);
-            --bg: #0a0a0b;
-            --bg2: #111113;
-            --bg3: #18181b;
-            --border: rgba(255,255,255,0.07);
-            --border-hot: rgba(221,72,20,0.35);
-            --text: #f4f4f5;
-            --text-muted: #71717a;
-            --text-dim: #3f3f46;
-            --mono: 'JetBrains Mono', monospace;
+            --raven: #8b5cf6;
+            --raven-light: #a78bfa;
+            --raven-dark: #6d28d9;
+            --electric: #c084fc;
+            --blue: #6366f1;
+
+            --bg: #050507;
+            --bg2: #0b0a10;
+            --bg3: #11101a;
+            --card: rgba(17, 16, 26, 0.8);
+
+            --border: rgba(167, 139, 250, 0.12);
+            --border-hot: rgba(139, 92, 246, 0.45);
+
+            --text: #f5f3ff;
+            --muted: #9490a8;
+            --dim: #4c485b;
+
+            --mono: 'Fira Code', monospace;
             --sans: 'Unbounded', sans-serif;
         }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: var(--sans);
-            background: var(--bg);
+            background:
+                radial-gradient(circle at 50% -20%, rgba(124, 58, 237, .18), transparent 40%),
+                var(--bg);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* ── NOISE TEXTURE ── */
+        /* =========================
+           BACKGROUND
+        ========================= */
+
         body::before {
-            content: '';
+            content: "";
             position: fixed;
             inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 0;
-            opacity: 0.6;
-        }
 
-        /* ── GRID BACKGROUND ── */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
             background-image:
-                linear-gradient(var(--border) 1px, transparent 1px),
-                linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none;
-            z-index: 0;
-            mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+                linear-gradient(rgba(139,92,246,.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139,92,246,.035) 1px, transparent 1px);
+
+            background-size: 55px 55px;
+
+            mask-image:
+                radial-gradient(
+                    ellipse 80% 70% at 50% 0%,
+                    black 20%,
+                    transparent 100%
+                );
         }
 
-        /* ── GLOW ORBS ── */
+        .noise {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: .035;
+
+            background-image:
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
         .orb {
             position: fixed;
             border-radius: 50%;
@@ -73,437 +98,685 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             pointer-events: none;
             z-index: 0;
         }
-        .orb-1 {
-            width: 600px; height: 600px;
-            top: -200px; left: -100px;
-            background: radial-gradient(circle, rgba(221,72,20,0.12) 0%, transparent 70%);
-        }
-        .orb-2 {
-            width: 400px; height: 400px;
-            top: 200px; right: -100px;
-            background: radial-gradient(circle, rgba(221,72,20,0.07) 0%, transparent 70%);
+
+        .orb-one {
+            width: 500px;
+            height: 500px;
+            top: -200px;
+            left: -150px;
+            background: rgba(124, 58, 237, .15);
         }
 
-        /* ── LAYOUT ── */
-        .wrap {
-            position: relative;
-            z-index: 1;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        .orb-two {
+            width: 450px;
+            height: 450px;
+            top: 300px;
+            right: -200px;
+            background: rgba(99, 102, 241, .10);
         }
 
-        /* ── NAV ── */
+        /* =========================
+           NAVBAR
+        ========================= */
+
         nav {
             position: relative;
             z-index: 10;
+
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 1.5rem 2rem;
+            align-items: center;
+
+            padding: 1.2rem 2rem;
+
             border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(12px);
-            background: rgba(10,10,11,0.6);
-            max-width: 100%;
+
+            background: rgba(5,5,7,.75);
+            backdrop-filter: blur(20px);
         }
 
-        .nav-logo {
+        .logo {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--text);
+            gap: .7rem;
+
+            color: white;
             text-decoration: none;
+
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: -.03em;
         }
 
-        .nav-logo .flame {
-            width: 28px; height: 28px;
-            background: var(--lava);
-            border-radius: 6px;
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            box-shadow: 0 0 20px var(--lava-glow-strong);
+
+            border-radius: 10px;
+
+            font-size: 20px;
+
+            background:
+                linear-gradient(135deg,
+                    var(--raven),
+                    var(--blue)
+                );
+
+            box-shadow:
+                0 0 25px rgba(139,92,246,.4);
+        }
+
+        .logo span {
+            color: var(--raven-light);
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: .3rem;
         }
 
         .nav-links a {
-            color: var(--text-muted);
+            color: var(--muted);
             text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            transition: color 0.2s, background 0.2s;
+
+            font-size: .75rem;
+
+            padding: .55rem .85rem;
+            border-radius: 7px;
+
+            transition: .2s;
         }
 
-        .nav-links a:hover { color: var(--text); background: var(--bg3); }
-
-        .nav-links .btn-nav {
-            color: var(--text);
-            background: var(--lava);
-            padding: 0.4rem 1rem;
-            border-radius: 6px;
-            margin-left: 0.5rem;
-            transition: background 0.2s, box-shadow 0.2s;
+        .nav-links a:hover {
+            color: white;
+            background: var(--bg3);
         }
 
-        .nav-links .btn-nav:hover {
-            background: var(--lava-dim);
-            box-shadow: 0 0 20px var(--lava-glow-strong);
+        .nav-button {
+            background: var(--raven) !important;
+            color: white !important;
+
+            margin-left: .5rem;
+
+            box-shadow: 0 0 20px rgba(139,92,246,.2);
         }
 
-        /* ── HERO ── */
+        .nav-button:hover {
+            background: var(--raven-dark) !important;
+            box-shadow: 0 0 30px rgba(139,92,246,.4);
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .wrap {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 2rem;
+        }
+
         .hero {
-            padding: 7rem 2rem 5rem;
-            text-align: center;
             position: relative;
             z-index: 1;
+
+            text-align: center;
+
+            padding: 7rem 2rem 6rem;
         }
 
-        .badge {
+        .status {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            background: rgba(221,72,20,0.1);
-            border: 1px solid var(--border-hot);
-            color: #f97316;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            padding: 0.35rem 0.9rem;
+            gap: .55rem;
+
+            padding: .45rem .9rem;
+
             border-radius: 999px;
-            margin-bottom: 2rem;
+
+            background: rgba(139,92,246,.08);
+            border: 1px solid var(--border-hot);
+
+            color: var(--raven-light);
+
             font-family: var(--mono);
+            font-size: .7rem;
+
+            margin-bottom: 2rem;
         }
 
-        .badge::before {
-            content: '';
-            width: 6px; height: 6px;
-            background: var(--lava);
+        .status-dot {
+            width: 7px;
+            height: 7px;
+
             border-radius: 50%;
-            box-shadow: 0 0 8px var(--lava);
-            animation: pulse 2s ease-in-out infinite;
+
+            background: var(--raven-light);
+
+            box-shadow: 0 0 12px var(--raven);
+            animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--lava); }
-            50% { opacity: 0.5; box-shadow: 0 0 3px var(--lava); }
+            0%,100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .5;
+                transform: scale(.75);
+            }
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(3rem, 9vw, 7rem);
+
+            line-height: .95;
+
+            letter-spacing: -.06em;
+
             font-weight: 800;
-            line-height: 1;
-            letter-spacing: -0.04em;
-            margin-bottom: 1.5rem;
+
+            margin-bottom: 1.8rem;
+
+            text-shadow:
+                0 0 60px rgba(139,92,246,.15);
         }
 
-        .hero h1 .word-lava { color: var(--lava); }
-        .hero h1 .word-lust {
+        .hero h1 .super {
+            color: white;
+        }
+
+        .hero h1 .raven {
+            background:
+                linear-gradient(
+                    135deg,
+                    #a78bfa,
+                    #7c3aed,
+                    #6366f1
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
             color: transparent;
-            -webkit-text-stroke: 1.5px rgba(255,255,255,0.3);
         }
 
         .hero-sub {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            max-width: 520px;
-            margin: 0 auto 2.5rem;
-            line-height: 1.7;
+            max-width: 650px;
+
+            margin: auto auto 2.5rem;
+
+            color: var(--muted);
+
+            line-height: 1.8;
+
+            font-size: .95rem;
+
             font-weight: 400;
         }
 
-        .hero-actions {
+        .actions {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 0.75rem;
+            gap: .75rem;
             flex-wrap: wrap;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
+            gap: .5rem;
+
+            padding: .8rem 1.4rem;
+
             border-radius: 8px;
-            font-family: var(--sans);
-            font-size: 0.9rem;
-            font-weight: 600;
+
             text-decoration: none;
-            transition: all 0.2s;
-            cursor: pointer;
-            border: none;
+
+            font-family: var(--sans);
+            font-size: .75rem;
+            font-weight: 600;
+
+            transition: .25s;
         }
 
         .btn-primary {
-            background: var(--lava);
-            color: #fff;
-            box-shadow: 0 0 0 0 var(--lava-glow);
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--raven),
+                    var(--blue)
+                );
+
+            color: white;
+
+            box-shadow:
+                0 0 25px rgba(139,92,246,.2);
         }
 
         .btn-primary:hover {
-            background: var(--lava-dim);
-            box-shadow: 0 0 30px var(--lava-glow-strong), 0 4px 15px rgba(0,0,0,0.3);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 0 40px rgba(139,92,246,.4);
         }
 
-        .btn-ghost {
-            background: transparent;
-            color: var(--text-muted);
+        .btn-secondary {
+            color: var(--muted);
+
             border: 1px solid var(--border);
+
+            background: rgba(255,255,255,.02);
         }
 
-        .btn-ghost:hover {
-            color: var(--text);
-            border-color: rgba(255,255,255,0.2);
-            background: var(--bg3);
+        .btn-secondary:hover {
+            color: white;
+
+            border-color: var(--border-hot);
+
+            background: rgba(139,92,246,.06);
         }
 
-        /* ── STAT BAR ── */
+        /* =========================
+           RAVEN SYMBOL
+        ========================= */
+
+        .raven-symbol {
+            position: absolute;
+
+            top: 40px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            font-size: 260px;
+
+            opacity: .025;
+
+            filter: blur(1px);
+
+            pointer-events: none;
+        }
+
+        /* =========================
+           STATS
+        ========================= */
+
         .stats {
+            position: relative;
+            z-index: 1;
+
             display: flex;
             justify-content: center;
-            gap: 3rem;
             flex-wrap: wrap;
+
+            gap: 4rem;
+
             padding: 3rem 2rem;
+
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
-            position: relative;
-            z-index: 1;
         }
 
-        .stat { text-align: center; }
+        .stat {
+            text-align: center;
+        }
 
         .stat-value {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
-            color: var(--text);
-            letter-spacing: -0.03em;
-            line-height: 1;
+
+            letter-spacing: -.04em;
         }
 
-        .stat-value span { color: var(--lava); }
+        .stat-value span {
+            color: var(--raven-light);
+        }
 
         .stat-label {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-top: 0.3rem;
+            margin-top: .4rem;
+
+            color: var(--muted);
+
+            font-size: .65rem;
+
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+
+            letter-spacing: .1em;
         }
 
-        /* ── SECTION ── */
+        /* =========================
+           SECTIONS
+        ========================= */
+
         section {
-            padding: 5rem 2rem;
             position: relative;
             z-index: 1;
+
+            padding: 6rem 2rem;
         }
 
-        .section-label {
+        .label {
+            color: var(--raven-light);
+
             font-family: var(--mono);
-            font-size: 0.72rem;
-            font-weight: 500;
-            color: var(--lava);
+
+            font-size: .7rem;
+
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            margin-bottom: 0.75rem;
+
+            letter-spacing: .15em;
+
+            margin-bottom: .8rem;
         }
 
-        .section-title {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
+        .title {
+            font-size: clamp(1.8rem,4vw,2.8rem);
+
+            line-height: 1.15;
+
+            letter-spacing: -.04em;
+
             margin-bottom: 1rem;
         }
 
-        .section-desc {
-            color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.7;
-            max-width: 480px;
+        .description {
+            max-width: 560px;
+
+            color: var(--muted);
+
+            font-size: .9rem;
+
+            line-height: 1.8;
         }
 
-        /* ── FEATURES GRID ── */
-        .features-layout {
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
+
+            grid-template-columns: repeat(3,1fr);
+
+            gap: 1rem;
+
             margin-top: 3rem;
         }
 
         .feature {
-            background: var(--bg);
-            padding: 2rem;
-            transition: background 0.2s;
             position: relative;
+
+            padding: 1.8rem;
+
+            min-height: 210px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(17,16,26,.95),
+                    rgba(10,9,15,.85)
+                );
+
+            overflow: hidden;
+
+            transition: .3s;
         }
 
-        .feature:hover { background: var(--bg2); }
+        .feature::after {
+            content: "";
 
-        .feature::before {
-            content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--lava-glow-strong), transparent);
+
+            width: 120px;
+            height: 120px;
+
+            top: -60px;
+            right: -60px;
+
+            border-radius: 50%;
+
+            background: var(--raven);
+
+            filter: blur(60px);
+
             opacity: 0;
-            transition: opacity 0.3s;
+
+            transition: .3s;
         }
 
-        .feature:hover::before { opacity: 1; }
+        .feature:hover {
+            transform: translateY(-5px);
 
-        .feature-icon {
-            width: 40px; height: 40px;
-            background: rgba(221,72,20,0.1);
-            border: 1px solid var(--border-hot);
-            border-radius: 10px;
+            border-color: var(--border-hot);
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,.3);
+        }
+
+        .feature:hover::after {
+            opacity: .12;
+        }
+
+        .icon {
+            width: 42px;
+            height: 42px;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
+            border-radius: 10px;
+
+            background: rgba(139,92,246,.1);
+
+            border: 1px solid var(--border-hot);
+
             font-size: 18px;
-            margin-bottom: 1rem;
+
+            margin-bottom: 1.2rem;
         }
 
         .feature h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.01em;
+            font-size: .9rem;
+
+            margin-bottom: .7rem;
         }
 
         .feature p {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            line-height: 1.6;
+            color: var(--muted);
+
+            font-size: .75rem;
+
+            line-height: 1.7;
         }
 
-        /* ── CODE SECTION ── */
+        /* =========================
+           CODE
+        ========================= */
+
         .code-section {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns: .8fr 1.2fr;
+
             gap: 3rem;
+
             align-items: center;
         }
 
-        .code-block {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 12px;
+        .code-window {
             overflow: hidden;
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            background: #08080c;
+
+            box-shadow:
+                0 20px 60px rgba(0,0,0,.4);
         }
 
         .code-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid var(--border);
+
+            gap: .5rem;
+
+            padding: .8rem 1rem;
+
             background: var(--bg3);
+
+            border-bottom: 1px solid var(--border);
         }
 
-        .dot { width: 10px; height: 10px; border-radius: 50%; }
-        .dot-r { background: #ff5f57; }
-        .dot-y { background: #febc2e; }
-        .dot-g { background: #28c840; }
+        .dot {
+            width: 9px;
+            height: 9px;
 
-        .code-filename {
+            border-radius: 50%;
+        }
+
+        .red { background: #ff5f57; }
+        .yellow { background: #febc2e; }
+        .green { background: #28c840; }
+
+        .filename {
+            margin-left: .5rem;
+
             font-family: var(--mono);
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-left: 0.5rem;
+
+            color: var(--muted);
+
+            font-size: .65rem;
         }
 
-        .code-body {
+        pre {
             padding: 1.5rem;
-            font-family: var(--mono);
-            font-size: 0.82rem;
-            line-height: 1.8;
-            color: #a1a1aa;
+
             overflow-x: auto;
-        }
 
-        .code-body .kw { color: #f97316; }
-        .code-body .fn { color: #60a5fa; }
-        .code-body .str { color: #86efac; }
-        .code-body .cm { color: #3f3f46; }
-        .code-body .cl { color: #fde68a; }
-        .code-body .var { color: #c4b5fd; }
-
-        /* ── STRUCTURE ── */
-        .structure-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 0.5rem;
-            margin-top: 2rem;
-        }
-
-        .dir-item {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 0.875rem 1rem;
             font-family: var(--mono);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            transition: all 0.2s;
+
+            font-size: .72rem;
+
+            line-height: 1.9;
+
+            color: #a1a1aa;
+        }
+
+        .purple { color: #c084fc; }
+        .blue { color: #60a5fa; }
+        .green-text { color: #86efac; }
+        .yellow-text { color: #fde68a; }
+
+        /* =========================
+           STRUCTURE
+        ========================= */
+
+        .structure {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fill,minmax(190px,1fr));
+
+            gap: .6rem;
+
+            margin-top: 2.5rem;
+        }
+
+        .directory {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: .6rem;
+
+            padding: .9rem 1rem;
+
+            border: 1px solid var(--border);
+
+            border-radius: 8px;
+
+            background: var(--bg2);
+
+            color: var(--muted);
+
+            font-family: var(--mono);
+
+            font-size: .7rem;
+
+            transition: .2s;
         }
 
-        .dir-item:hover {
+        .directory:hover {
+            color: white;
+
             border-color: var(--border-hot);
-            color: var(--text);
-            background: rgba(221,72,20,0.05);
+
+            background:
+                rgba(139,92,246,.06);
         }
 
-        .dir-item .dir-icon { color: var(--lava); font-size: 0.9rem; }
+        .directory-icon {
+            color: var(--raven-light);
+        }
 
-        /* ── FOOTER ── */
+        /* =========================
+           FOOTER
+        ========================= */
+
         footer {
-            border-top: 1px solid var(--border);
-            padding: 2rem;
             position: relative;
             z-index: 1;
+
+            padding: 2rem;
+
+            border-top: 1px solid var(--border);
         }
 
-        .footer-inner {
+        .footer {
             max-width: 1100px;
-            margin: 0 auto;
+
+            margin: auto;
+
             display: flex;
-            align-items: center;
+
             justify-content: space-between;
-            flex-wrap: wrap;
+
+            align-items: center;
+
             gap: 1rem;
+
+            flex-wrap: wrap;
         }
 
-        .footer-meta {
-            font-family: var(--mono);
-            font-size: 0.75rem;
-            color: var(--text-dim);
+        .meta {
             display: flex;
             gap: 1.5rem;
+
             flex-wrap: wrap;
+
+            color: var(--dim);
+
+            font-family: var(--mono);
+
+            font-size: .65rem;
         }
 
-        .footer-meta span { color: var(--text-muted); }
+        .meta span span {
+            color: var(--muted);
+        }
 
         .footer-links {
             display: flex;
@@ -511,251 +784,666 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         }
 
         .footer-links a {
-            color: var(--text-muted);
+            color: var(--muted);
+
             text-decoration: none;
-            font-size: 0.82rem;
-            transition: color 0.2s;
+
+            font-size: .7rem;
+
+            transition: .2s;
         }
 
-        .footer-links a:hover { color: var(--lava); }
-
-        /* ── DIVIDER ── */
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border), transparent);
-            margin: 0 2rem;
-            position: relative;
-            z-index: 1;
+        .footer-links a:hover {
+            color: var(--raven-light);
         }
 
-        /* ── ANIMATIONS ── */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+        /* =========================
+           ANIMATION
+        ========================= */
 
         .hero > * {
-            animation: fadeUp 0.6s ease both;
+            animation: fadeUp .7s ease both;
         }
 
-        .hero .badge         { animation-delay: 0.05s; }
-        .hero h1             { animation-delay: 0.15s; }
-        .hero .hero-sub      { animation-delay: 0.25s; }
-        .hero .hero-actions  { animation-delay: 0.35s; }
+        .status {
+            animation-delay: .05s;
+        }
 
-        @media (max-width: 768px) {
-            .features-layout { grid-template-columns: 1fr; }
-            .code-section { grid-template-columns: 1fr; }
-            nav { padding: 1rem 1.5rem; }
-            .nav-links a:not(.btn-nav) { display: none; }
-            section { padding: 3rem 1.5rem; }
+        .hero h1 {
+            animation-delay: .15s;
+        }
+
+        .hero-sub {
+            animation-delay: .25s;
+        }
+
+        .actions {
+            animation-delay: .35s;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width: 800px) {
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .code-section {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                gap: 2rem;
+            }
+
+            nav {
+                padding: 1rem 1.2rem;
+            }
+
+            .nav-links a:not(.nav-button) {
+                display: none;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .hero {
+                padding: 5rem 1.5rem 4rem;
+            }
+
+            .hero h1 {
+                font-size: clamp(3rem,14vw,5rem);
+            }
         }
     </style>
 </head>
+
 <body>
 
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
+<div class="noise"></div>
 
-<!-- NAV -->
+<div class="orb orb-one"></div>
+<div class="orb orb-two"></div>
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
 <nav>
-    <a class="nav-logo" href="#">
-        <div class="flame">🔥</div>
-        LavaLust
+
+    <a href="#" class="logo">
+
+        <div class="logo-icon">
+            🐦‍⬛
+        </div>
+
+        SUPER <span>RAVEN</span>
+
     </a>
+
     <div class="nav-links">
-        <a href="https://lavalust.netlify.app/docs/" target="_blank">Docs</a>
-        <a href="https://github.com/ronmarasigan/LavaLust" target="_blank">GitHub</a>
-        <a href="https://lavalust.netlify.app/docs/" target="_blank" class="btn-nav">Get Started →</a>
+
+        <a href="https://lavalust.netlify.app/docs/" target="_blank">
+            Docs
+        </a>
+
+        <a href="https://github.com/ronmarasigan/LavaLust" target="_blank">
+            GitHub
+        </a>
+
+        <a
+            href="https://lavalust.netlify.app/docs/"
+            target="_blank"
+            class="nav-button"
+        >
+            Enter System →
+        </a>
+
     </div>
+
 </nav>
 
-<!-- HERO -->
+
+<!-- =========================
+     HERO
+========================= -->
+
 <div class="hero wrap">
-    <div class="badge">v<?php echo config_item('VERSION') ?? '4.x'; ?> — Now Available</div>
+
+    <div class="raven-symbol">
+        🐦‍⬛
+    </div>
+
+    <div class="status">
+
+        <div class="status-dot"></div>
+
+        SYSTEM ONLINE — v<?php echo config_item('VERSION') ?? '4.x'; ?>
+
+    </div>
+
     <h1>
-        <span class="word-lava">Lava</span><span class="word-lust">Lust</span><br>Framework
+
+        <span class="super">
+            SUPER
+        </span>
+
+        <br>
+
+        <span class="raven">
+            RAVEN
+        </span>
+
     </h1>
+
     <p class="hero-sub">
-        A lightweight, expressive PHP MVC framework built for developers who want structure without the bloat.
+
+        A powerful developer environment built with
+        structure, speed, and precision.
+        Welcome to the Raven System.
+
     </p>
-    <div class="hero-actions">
-        <a href="https://lavalust.netlify.app/docs/" target="_blank" class="btn btn-primary">
-            Read the Docs
+
+    <div class="actions">
+
+        <a
+            href="https://lavalust.netlify.app/docs/"
+            target="_blank"
+            class="btn btn-primary"
+        >
+            ⚡ Enter the System
         </a>
-        <a href="https://github.com/ronmarasigan/LavaLust" target="_blank" class="btn btn-ghost">
-            View on GitHub
+
+        <a
+            href="https://github.com/ronmarasigan/LavaLust"
+            target="_blank"
+            class="btn btn-secondary"
+        >
+            ◈ View Source
         </a>
+
     </div>
+
 </div>
 
-<!-- STATS -->
+
+<!-- =========================
+     STATS
+========================= -->
+
 <div class="stats">
+
     <div class="stat">
-        <div class="stat-value">MVC<span>+</span></div>
-        <div class="stat-label">Architecture</div>
+
+        <div class="stat-value">
+            MVC<span>+</span>
+        </div>
+
+        <div class="stat-label">
+            Architecture
+        </div>
+
     </div>
+
+
     <div class="stat">
-        <div class="stat-value"><span>4</span> DB</div>
-        <div class="stat-label">Drivers</div>
+
+        <div class="stat-value">
+            <span>4</span> DB
+        </div>
+
+        <div class="stat-label">
+            Database Drivers
+        </div>
+
     </div>
+
+
     <div class="stat">
-        <div class="stat-value">HMVC<span>✓</span></div>
-        <div class="stat-label">Module Support</div>
+
+        <div class="stat-value">
+            HMVC<span>✓</span>
+        </div>
+
+        <div class="stat-label">
+            Module Support
+        </div>
+
     </div>
+
+
     <div class="stat">
-        <div class="stat-value">REST<span>*</span></div>
-        <div class="stat-label">API Ready</div>
+
+        <div class="stat-value">
+            REST<span>*</span>
+        </div>
+
+        <div class="stat-label">
+            API Ready
+        </div>
+
     </div>
+
 </div>
 
-<div class="divider"></div>
 
-<!-- FEATURES -->
+<!-- =========================
+     FEATURES
+========================= -->
+
 <section>
-    <div class="wrap">
-        <div class="section-label">// features</div>
-        <h2 class="section-title">Everything you need.<br>Nothing you don't.</h2>
-        <p class="section-desc">LavaLust gives you a clean, consistent structure so you can focus on building — not configuring.</p>
 
-        <div class="features-layout">
-            <div class="feature">
-                <div class="feature-icon">🧠</div>
-                <h3>MVC Architecture</h3>
-                <p>Clean separation between Models, Views, and Controllers keeps your codebase maintainable as it grows.</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">⚙️</div>
-                <h3>Flexible Routing</h3>
-                <p>Define routes with GET, POST, PUT, DELETE and more. Supports named routes, closures, and grouped prefixes.</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🗄️</div>
-                <h3>ORM-style Models</h3>
-                <p>Fluent query builder with relationships, soft deletes, timestamps, mass assignment protection, and eager loading.</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">📦</div>
-                <h3>HMVC Modules</h3>
-                <p>Scale your app with self-contained modules. Each module owns its controllers, models, and views.</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🔗</div>
-                <h3>REST API Support</h3>
-                <p>Build JSON APIs out of the box using built-in conventions, response helpers, and content negotiation.</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🛡️</div>
-                <h3>Libraries & Helpers</h3>
-                <p>Sessions, form validation, file uploads, pagination, encryption — batteries included where it counts.</p>
-            </div>
+    <div class="wrap">
+
+        <div class="label">
+            // raven capabilities
         </div>
+
+        <h2 class="title">
+            Built for the ones<br>
+            who build.
+        </h2>
+
+        <p class="description">
+            SUPER RAVEN gives your development environment
+            a clean architecture without unnecessary complexity.
+        </p>
+
+
+        <div class="features">
+
+            <div class="feature">
+
+                <div class="icon">
+                    🧠
+                </div>
+
+                <h3>
+                    MVC Architecture
+                </h3>
+
+                <p>
+                    Keep Models, Views, and Controllers
+                    separated for a clean and maintainable
+                    application structure.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Fast Routing
+                </h3>
+
+                <p>
+                    Create GET, POST, PUT, DELETE and
+                    grouped routes with a simple structure.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="icon">
+                    🗄️
+                </div>
+
+                <h3>
+                    Database Ready
+                </h3>
+
+                <p>
+                    Work with models, relationships,
+                    queries, timestamps and database
+                    operations efficiently.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="icon">
+                    📦
+                </div>
+
+                <h3>
+                    HMVC Modules
+                </h3>
+
+                <p>
+                    Build self-contained modules where
+                    controllers, models and views live
+                    together.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="icon">
+                    🔗
+                </div>
+
+                <h3>
+                    REST API
+                </h3>
+
+                <p>
+                    Create modern JSON-based APIs with
+                    built-in response helpers and
+                    conventions.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="icon">
+                    🛡️
+                </div>
+
+                <h3>
+                    Developer Tools
+                </h3>
+
+                <p>
+                    Sessions, validation, encryption,
+                    uploads and other utilities are
+                    available when you need them.
+                </p>
+
+            </div>
+
+        </div>
+
     </div>
+
 </section>
 
-<div class="divider"></div>
 
-<!-- CODE EXAMPLE -->
+<!-- =========================
+     QUICK START
+========================= -->
+
 <section>
+
     <div class="wrap">
+
         <div class="code-section">
-            <div>
-                <div class="section-label">// quick start</div>
-                <h2 class="section-title">Up and running in minutes.</h2>
-                <p class="section-desc">Define a route, write a controller method, render a view. That's the whole loop.</p>
-            </div>
 
             <div>
-                <div class="code-block" style="margin-bottom:1rem;">
-                    <div class="code-header">
-                        <div class="dot dot-r"></div>
-                        <div class="dot dot-y"></div>
-                        <div class="dot dot-g"></div>
-                        <span class="code-filename">app/config/routes.php</span>
-                    </div>
-                    <div class="code-body">
-<span class="var">$router</span>-><span class="fn">get</span>(<span class="str">'/'</span>, <span class="str">'Welcome::index'</span>);<br>
-<span class="var">$router</span>-><span class="fn">get</span>(<span class="str">'/users'</span>, <span class="str">'Users::index'</span>);<br>
-<span class="var">$router</span>-><span class="fn">post</span>(<span class="str">'/users/store'</span>, <span class="str">'Users::store'</span>);
-                    </div>
+
+                <div class="label">
+                    // quick start
                 </div>
 
-                <div class="code-block">
-                    <div class="code-header">
-                        <div class="dot dot-r"></div>
-                        <div class="dot dot-y"></div>
-                        <div class="dot dot-g"></div>
-                        <span class="code-filename">app/controllers/Welcome.php</span>
-                    </div>
-                    <div class="code-body">
-<span class="kw">class</span> <span class="cl">Welcome</span> <span class="kw">extends</span> <span class="cl">Controller</span> {<br>
-&nbsp;&nbsp;<span class="kw">public function</span> <span class="fn">index</span>() {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="var">$this</span>-><span class="fn">call</span>-><span class="fn">model</span>(<span class="str">'UserModel'</span>);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="var">$data</span>[<span class="str">'users'</span>] = <span class="var">$this</span>-><span class="cl">UserModel</span>-><span class="fn">all</span>();<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="var">$this</span>-><span class="fn">call</span>-><span class="fn">view</span>(<span class="str">'welcome'</span>, <span class="var">$data</span>);<br>
-&nbsp;&nbsp;}<br>
-}
-                    </div>
-                </div>
+                <h2 class="title">
+                    Code like a Raven.
+                </h2>
+
+                <p class="description">
+                    Define a route, connect your controller,
+                    load your model and render your view.
+                    Simple, clean and predictable.
+                </p>
+
             </div>
+
+
+            <div>
+
+                <div class="code-window">
+
+                    <div class="code-header">
+
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+
+                        <span class="filename">
+                            routes.php
+                        </span>
+
+                    </div>
+
+                    <pre><span class="purple">$router</span>-><span class="blue">get</span>(
+    <span class="green-text">'/'</span>,
+    <span class="green-text">'Welcome::index'</span>
+);
+
+<span class="purple">$router</span>-><span class="blue">get</span>(
+    <span class="green-text">'/users'</span>,
+    <span class="green-text">'Users::index'</span>
+);
+
+<span class="purple">$router</span>-><span class="blue">post</span>(
+    <span class="green-text">'/users/store'</span>,
+    <span class="green-text">'Users::store'</span>
+);</pre>
+
+                </div>
+
+
+                <br>
+
+
+                <div class="code-window">
+
+                    <div class="code-header">
+
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+
+                        <span class="filename">
+                            Welcome.php
+                        </span>
+
+                    </div>
+
+                    <pre><span class="purple">class</span> <span class="yellow-text">Welcome</span>
+    <span class="purple">extends</span> <span class="yellow-text">Controller</span>
+{
+
+    <span class="purple">public function</span> <span class="blue">index</span>()
+    {
+        <span class="purple">$this</span>->call->model(
+            <span class="green-text">'UserModel'</span>
+        );
+
+        <span class="purple">$data</span>[<span class="green-text">'users'</span>] =
+            <span class="purple">$this</span>->UserModel-><span class="blue">all</span>();
+
+        <span class="purple">$this</span>->call-><span class="blue">view</span>(
+            <span class="green-text">'welcome'</span>,
+            <span class="purple">$data</span>
+        );
+    }
+}</pre>
+
+                </div>
+
+            </div>
+
         </div>
+
     </div>
+
 </section>
 
-<div class="divider"></div>
 
-<!-- STRUCTURE -->
+<!-- =========================
+     PROJECT STRUCTURE
+========================= -->
+
 <section>
-    <div class="wrap">
-        <div class="section-label">// project structure</div>
-        <h2 class="section-title">Organized by default.</h2>
-        <p class="section-desc">A predictable directory layout so every file has a logical home from day one.</p>
 
-        <div class="structure-grid">
-            <?php
-            $dirs = [
-                ['app/config',      '⚙'],
-                ['app/controllers', '🎮'],
-                ['app/helpers',     '🔧'],
-                ['app/libraries',   '📚'],
-                ['app/language',    '🌐'],
-                ['app/middlewares', '🛡️'],
-                ['app/migrations',  '🔄'],
-                ['app/models',      '🗄'],
-                ['app/modules',     '📦'],
-                ['app/views',       '🖼'],
-                ['public/',         '🌍'],
-                ['runtime/',        '⚡'],
-                ['console/',        '💻'],
-                ['scheme/',         '📐'],
-            ];
-            foreach ($dirs as [$name, $icon]): ?>
-            <div class="dir-item">
-                <span class="dir-icon"><?php echo $icon; ?></span>
-                <?php echo $name; ?>
-            </div>
-            <?php endforeach; ?>
+    <div class="wrap">
+
+        <div class="label">
+            // system structure
         </div>
+
+        <h2 class="title">
+            Raven organized.
+        </h2>
+
+        <p class="description">
+            Every component has its own place.
+            No unnecessary chaos.
+        </p>
+
+
+        <div class="structure">
+
+            <?php
+
+            $dirs = [
+
+                ['app/config', '⚙'],
+                ['app/controllers', '🎮'],
+                ['app/helpers', '🔧'],
+                ['app/libraries', '📚'],
+                ['app/language', '🌐'],
+                ['app/middlewares', '🛡️'],
+                ['app/migrations', '🔄'],
+                ['app/models', '🗄'],
+                ['app/modules', '📦'],
+                ['app/views', '🖼'],
+                ['public/', '🌍'],
+                ['runtime/', '⚡'],
+                ['console/', '💻'],
+                ['scheme/', '📐']
+
+            ];
+
+            foreach ($dirs as [$name, $icon]):
+            ?>
+
+                <div class="directory">
+
+                    <span class="directory-icon">
+                        <?php echo $icon; ?>
+                    </span>
+
+                    <?php echo $name; ?>
+
+                </div>
+
+            <?php endforeach; ?>
+
+        </div>
+
     </div>
+
 </section>
 
-<!-- FOOTER -->
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
-    <div class="footer-inner">
-        <div class="footer-meta">
-            <span>rendered in <span><?php echo lava_instance()->performance->elapsed_time('lavalust'); ?>s</span></span>
-            <span>memory <span><?php echo lava_instance()->performance->memory_usage(); ?></span></span>
+
+    <div class="footer">
+
+        <div class="meta">
+
+            <span>
+                rendered in
+                <span>
+                    <?php
+                    echo lava_instance()
+                        ->performance
+                        ->elapsed_time('lavalust');
+                    ?>s
+                </span>
+            </span>
+
+
+            <span>
+                memory
+                <span>
+                    <?php
+                    echo lava_instance()
+                        ->performance
+                        ->memory_usage();
+                    ?>
+                </span>
+            </span>
+
+
             <?php if(config_item('environment') === 'development'): ?>
-            <span>version <span><?php echo config_item('version'); ?></span></span>
-            <span style="color: #dd4814;">● development</span>
+
+                <span>
+                    version
+                    <span>
+                        <?php echo config_item('version'); ?>
+                    </span>
+                </span>
+
+                <span style="color:#a78bfa;">
+                    ● SUPER RAVEN DEVELOPMENT
+                </span>
+
             <?php endif; ?>
+
         </div>
+
+
         <div class="footer-links">
-            <a href="https://github.com/ronmarasigan/LavaLust" target="_blank">GitHub</a>
-            <a href="https://lavalust.netlify.app/docs/" target="_blank">Docs</a>
-            <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>
+
+            <a
+                href="https://github.com/ronmarasigan/LavaLust"
+                target="_blank"
+            >
+                GitHub
+            </a>
+
+            <a
+                href="https://lavalust.netlify.app/docs/"
+                target="_blank"
+            >
+                Docs
+            </a>
+
+            <a
+                href="https://opensource.org/licenses/MIT"
+                target="_blank"
+            >
+                MIT License
+            </a>
+
         </div>
+
     </div>
+
 </footer>
 
 </body>
