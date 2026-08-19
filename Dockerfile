@@ -1,6 +1,11 @@
-FROM php:8.2-apache
+ARG PHP_VERSION=8.5
+
+FROM php:${PHP_VERSION}-apache
 
 WORKDIR /var/www/html
+
+# Install PDO MySQL
+RUN docker-php-ext-install pdo pdo_mysql
 
 COPY . /var/www/html/
 
