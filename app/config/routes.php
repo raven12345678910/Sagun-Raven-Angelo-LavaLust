@@ -44,15 +44,25 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 */
 /** @var object $router **/
 
+
+
 $router->get('users', 'UserController::index')->middleware('auth');
 
-$router->get('users/create', 'UserController::create')->middleware('admin');
-$router->post('users/store', 'UserController::store')->middleware('admin');
+$router->get('users/create', 'UserController::create')->middleware('auth');
 
-$router->get('users/edit/{id}', 'UserController::edit')->middleware('admin');
-$router->post('users/update/{id}', 'UserController::update')->middleware('admin');
-$router->get('users/delete/{id}', 'UserController::delete')->middleware('admin');
+$router->post('users/store', 'UserController::store')->middleware('auth');
+
+$router->get('users/edit/{id}', 'UserController::edit')->middleware('auth');
+
+$router->post('users/update/{id}', 'UserController::update')->middleware('auth');
+
+$router->get('users/delete/{id}', 'UserController::delete')->middleware('auth');
 
 $router->get('login', 'LoginController::index');
+
 $router->post('login', 'LoginController::login');
+
 $router->get('logout', 'LoginController::logout');
+
+?>
+
