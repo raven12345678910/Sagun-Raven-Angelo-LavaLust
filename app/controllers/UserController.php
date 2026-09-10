@@ -28,17 +28,15 @@ class UserController extends Controller
             'firstname' => $_POST['firstname'],
             'lastname'  => $_POST['lastname'],
             'email'     => $_POST['email'],
-            'contact'   => $_POST['contact'],
-            'role'      => 'user'
+            'username'  => $_POST['username']
         ];
 
         $this->UserModel->create($data);
 
-        header('Location: /LavaLust/users');
+        header('Location: /users');
         exit;
     }
 
-    // SHOW EDIT FORM
     public function edit($id)
     {
         $this->call->model('UserModel');
@@ -52,7 +50,6 @@ class UserController extends Controller
         $this->call->view('UserEdit', $data);
     }
 
-    // UPDATE USER
     public function update($id)
     {
         $this->call->model('UserModel');
@@ -61,23 +58,22 @@ class UserController extends Controller
             'firstname' => $_POST['firstname'],
             'lastname'  => $_POST['lastname'],
             'email'     => $_POST['email'],
-            'contact'   => $_POST['contact']
+            'username'  => $_POST['username']
         ];
 
         $this->UserModel->update($id, $data);
 
-        header('Location: /LavaLust/users');
+        header('Location: /users');
         exit;
     }
 
-    // DELETE USER
     public function delete($id)
     {
         $this->call->model('UserModel');
 
         $this->UserModel->delete($id);
 
-        header('Location: /LavaLust/users');
+        header('Location: /users');
         exit;
     }
 }
