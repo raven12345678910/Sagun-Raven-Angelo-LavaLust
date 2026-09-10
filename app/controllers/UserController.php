@@ -33,7 +33,7 @@ public function index()
 
         $this->UserModel->create($data);
 
-        header('Location: /LavaLust/users');
+        header('Location: /login');
         exit;
     }
 
@@ -63,7 +63,7 @@ public function index()
 
         $this->UserModel->update($id, $data);
 
-        header('Location: /LavaLust/users');
+       header('Location: /users');
         exit;
     }
 
