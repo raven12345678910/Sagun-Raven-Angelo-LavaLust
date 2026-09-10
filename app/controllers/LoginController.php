@@ -17,18 +17,10 @@ class LoginController extends Controller
 
         $email = trim($_POST['email'] ?? '');
 
-        $users = $this->UserModel->getAll();
+        // Hanapin ang user gamit ang email
+        $user = $this->UserModel->getByEmail($email);
 
-        $user = null;
-
-        foreach ($users as $row) {
-
-            if (strcasecmp(trim($row['email']), $email) === 0) {
-                $user = $row;
-                break;
-            }
-        }
-
+        // Kapag nakita ang email
         if ($user) {
 
             $_SESSION['user'] = [
@@ -36,13 +28,15 @@ class LoginController extends Controller
                 'firstname' => $user['firstname'],
                 'lastname'  => $user['lastname'],
                 'email'     => $user['email'],
-                'username'  => $user['username']
+                'role'      => $user['role']
             ];
 
-            header('Location: /users');
+            // Redirect sa Users page
+            header('Location: /LavaLust/users');
             exit;
         }
 
+        // Kapag walang nahanap na email
         $data = [
             'error' => 'Email not found.'
         ];
@@ -56,8 +50,7 @@ class LoginController extends Controller
 
         session_destroy();
 
-        header('Location: /login');
+        header('Location: /LavaLust/login');
         exit;
     }
 }
-?>

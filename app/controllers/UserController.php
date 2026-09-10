@@ -2,18 +2,18 @@
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $this->call->model('UserModel');
+public function index()
+{
+    $this->call->model('UserModel');
 
-        $users = $this->UserModel->getAll();
+    $users = $this->UserModel->getAll();
 
-        $data = [
-            'users' => $users
-        ];
+    $data = [
+        'users' => $users
+    ];
 
-        $this->call->view('Crud', $data);
-    }
+    $this->call->view('Crud', $data);
+}
 
     public function create()
     {
@@ -28,12 +28,12 @@ class UserController extends Controller
             'firstname' => $_POST['firstname'],
             'lastname'  => $_POST['lastname'],
             'email'     => $_POST['email'],
-            'username'  => $_POST['username']
+            'contact'   => $_POST['contact']
         ];
 
         $this->UserModel->create($data);
 
-        header('Location: /users');
+        header('Location: /LavaLust/users');
         exit;
     }
 
@@ -58,12 +58,12 @@ class UserController extends Controller
             'firstname' => $_POST['firstname'],
             'lastname'  => $_POST['lastname'],
             'email'     => $_POST['email'],
-            'username'  => $_POST['username']
+            'contact'   => $_POST['contact']
         ];
 
         $this->UserModel->update($id, $data);
 
-        header('Location: /users');
+        header('Location: /LavaLust/users');
         exit;
     }
 
@@ -73,7 +73,7 @@ class UserController extends Controller
 
         $this->UserModel->delete($id);
 
-        header('Location: /users');
+        header('Location: /LavaLust/users');
         exit;
     }
 }

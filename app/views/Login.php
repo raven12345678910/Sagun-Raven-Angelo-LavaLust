@@ -246,7 +246,8 @@
 
 
     <!-- Login Form -->
-    <form action="/login" method="POST">
+    
+<form action="/LavaLust/login" method="POST">
 
         <label>Email</label>
 

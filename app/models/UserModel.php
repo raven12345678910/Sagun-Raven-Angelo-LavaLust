@@ -25,14 +25,19 @@ class UserModel
             ->get();
     }
 
-    public function getByEmail($email)
-    {
-        return $this->db
-            ->table('users')
-            ->where('email', $email)
-            ->get();
+   public function getByEmail($email)
+{
+    $result = $this->db
+        ->table('users')
+        ->where('email', $email)
+        ->get();
+
+    if (!$result) {
+        return null;
     }
 
+    return $result;
+}
     public function create($data)
     {
         return $this->db
