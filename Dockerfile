@@ -1,16 +1,12 @@
-ARG PHP_VERSION=8.5
+FROM php:8.3-apache
 
-FROM php:${PHP_VERSION}-apache
-
-WORKDIR /var/www/html
-
-# Install PDO MySQL
-RUN docker-php-ext-install pdo pdo_mysql
-
-COPY . /var/www/html/
+RUN docker-php-ext-install pdo_mysql
 
 RUN a2enmod rewrite
 
+COPY . /var/www/html
+
+# LavaLust uses the public folder
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
@@ -18,6 +14,7 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
     /etc/apache2/apache2.conf \
     /etc/apache2/conf-available/*.conf
 
+# LavaLust / public directory
 RUN printf '%s\n' \
     '<Directory /var/www/html/public>' \
     '    Options Indexes FollowSymLinks' \
@@ -32,4 +29,4 @@ RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+CMD ["apache2-foreground"]git add Dockerfile
