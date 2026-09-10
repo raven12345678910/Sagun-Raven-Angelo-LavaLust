@@ -63,14 +63,13 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
-
 $database['main'] = [
     'driver'   => 'mysql',
-    'hostname' => 'mysql-120fb31-sagunraven126-02e9.b.aivencloud.com',
-    'port'     => '24713',
-    'username' => 'avnadmin',
-    'password' => '',
-    'database' => 'defaultdb',
+    'hostname' => getenv('DB_HOST'),
+    'port'     => getenv('DB_PORT'),
+    'username' => getenv('DB_USERNAME'),
+    'password' => getenv('DB_PASSWORD'),
+    'database' => getenv('DB_DATABASE'),
     'charset'  => 'utf8mb4',
     'dbprefix' => '',
 ];
