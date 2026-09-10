@@ -43,7 +43,7 @@ class LoginController extends Controller
             ];
 
             // Redirect sa Users
-            header('Location: /LavaLust/users');
+            header('Location: /users');
             exit;
         }
 
@@ -61,7 +61,8 @@ class LoginController extends Controller
 
         session_destroy();
 
-        header('Location: /LavaLust/login');
+        header('Location: /login');
         exit;
     }
 }
+?>
