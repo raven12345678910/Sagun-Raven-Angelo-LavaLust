@@ -30,10 +30,6 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
             min-height: 100vh;
         }
 
-        /* =========================
-           HEADER
-        ========================= */
-
         .header {
             background: rgba(5, 8, 6, 0.95);
             border-bottom: 1px solid #1e6b43;
@@ -77,10 +73,6 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
             border-radius: 5px;
         }
 
-        /* =========================
-           LOGOUT BUTTON
-        ========================= */
-
         .logout-btn {
             display: inline-flex;
             align-items: center;
@@ -100,10 +92,6 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
             transform: translateY(-2px);
             box-shadow: 0 0 15px rgba(220, 38, 38, 0.25);
         }
-
-        /* =========================
-           MAIN CONTAINER
-        ========================= */
 
         .container {
             width: 92%;
@@ -131,10 +119,6 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
             font-size: 14px;
         }
 
-        /* =========================
-           ADD USER BUTTON
-        ========================= */
-
         .top-btn {
             display: inline-flex;
             align-items: center;
@@ -155,10 +139,6 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
             transform: translateY(-2px);
             box-shadow: 0 0 20px rgba(30, 200, 100, 0.25);
         }
-
-        /* =========================
-           TABLE CARD
-        ========================= */
 
         .table-card {
             background: rgba(13, 18, 15, 0.96);
@@ -203,18 +183,10 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
             background: #102119;
         }
 
-        /* =========================
-           ID
-        ========================= */
-
         .id-number {
             color: #4ade80;
             font-weight: bold;
         }
-
-        /* =========================
-           ROLE
-        ========================= */
 
         .role {
             display: inline-block;
@@ -227,10 +199,6 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
             text-transform: uppercase;
             font-weight: bold;
         }
-
-        /* =========================
-           ACTION BUTTONS
-        ========================= */
 
         .edit-btn,
         .delete-btn {
@@ -265,19 +233,11 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
             transform: translateY(-1px);
         }
 
-        /* =========================
-           EMPTY TABLE
-        ========================= */
-
         .empty {
             text-align: center !important;
             padding: 40px !important;
             color: #718078 !important;
         }
-
-        /* =========================
-           FOOTER
-        ========================= */
 
         .footer {
             text-align: center;
@@ -290,10 +250,6 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
         .footer strong {
             color: #36c96d;
         }
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
 
         @media (max-width: 850px) {
 
@@ -330,7 +286,6 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
 
 <body>
 
-    <!-- HEADER -->
     <div class="header">
 
         <div class="logo">
@@ -347,8 +302,7 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
 
         </div>
 
-        <!-- LOGOUT -->
-        <a href="/LavaLust/logout"
+        <a href="/logout"
            class="logout-btn"
            onclick="return confirm('Are you sure you want to logout?');">
             🚪 Logout
@@ -356,8 +310,6 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
 
     </div>
 
-
-    <!-- MAIN -->
     <div class="container">
 
         <div class="title-section">
@@ -367,10 +319,9 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
                 <p>Manage your users like a true swordsman.</p>
             </div>
 
-            <!-- ADD USER ONLY FOR ADMIN -->
             <?php if ($currentRole === 'admin'): ?>
 
-                <a href="/LavaLust/users/create" class="top-btn">
+                <a href="/users/create" class="top-btn">
                     ⚔ + Add User
                 </a>
 
@@ -378,8 +329,6 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
 
         </div>
 
-
-        <!-- TABLE -->
         <div class="table-card">
 
             <table>
@@ -397,7 +346,6 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
                     </tr>
 
                 </thead>
-
 
                 <tbody>
 
@@ -439,24 +387,20 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
 
                                 <?php if ($currentRole === 'admin'): ?>
 
-                                    <!-- ADMIN: EDIT -->
                                     <a
-                                        href="/LavaLust/users/edit/<?= $user['id']; ?>"
+                                        href="/users/edit/<?= $user['id']; ?>"
                                         class="edit-btn">
                                         ⚔ Edit
                                     </a>
 
-                                    <!-- ADMIN: DELETE -->
                                     <a
-                                        href="/LavaLust/users/delete/<?= $user['id']; ?>"
+                                        href="/users/delete/<?= $user['id']; ?>"
                                         class="delete-btn"
                                         onclick="return confirm('Are you sure you want to delete this user?');">
                                         🗡 Delete
                                     </a>
 
                                 <?php else: ?>
-
-                                    <!-- USER: NO ACTION -->
 
                                     <span style="color: #526159;">
                                         No action
@@ -485,7 +429,6 @@ $currentRole = $_SESSION['user']['role'] ?? 'user';
             </table>
 
         </div>
-
 
         <div class="footer">
             <strong>NOTHING HAPPENED.</strong> • CRUD SYSTEM
