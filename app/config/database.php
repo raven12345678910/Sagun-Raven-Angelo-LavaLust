@@ -59,17 +59,17 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 
 
-
-
-
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 return [
-    'hostname' => getenv('DB_HOST'),
-    'username' => getenv('DB_USERNAME'),
-    'password' => getenv('DB_PASSWORD'),
-    'database' => getenv('DB_DATABASE'),
-    'port'     => getenv('DB_PORT'),
-    'driver'   => 'mysql',
-    'charset'  => 'utf8mb4'
+    'main' => [
+        'hostname' => getenv('DB_HOST'),
+        'username' => getenv('DB_USERNAME'),
+        'password' => getenv('DB_PASSWORD'),
+        'database' => getenv('DB_DATABASE'),
+        'port'     => getenv('DB_PORT'),
+        'driver'   => 'mysql',
+        'charset'  => 'utf8mb4',
+        'dbprefix' => ''
+    ]
 ];
