@@ -59,6 +59,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 
 
+
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 return [
@@ -72,4 +73,4 @@ return [
         'charset'  => 'utf8mb4',
         'dbprefix' => ''
     ]
-];
+];;
