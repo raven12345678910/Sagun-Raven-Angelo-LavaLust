@@ -8,8 +8,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 |-------------------------------------------------------------------
 */
 
-$router->get('users', 'UserController::index')
-       ->middleware('auth');
+$router->get('users', 'UserController::index');
 
 $router->get('users/create', 'UserController::create')
        ->middleware(['auth', 'admin']);
