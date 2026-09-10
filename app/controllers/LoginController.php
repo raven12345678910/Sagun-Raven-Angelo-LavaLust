@@ -32,7 +32,7 @@ class LoginController extends Controller
             ];
 
             // Redirect sa Users page
-            header('Location: /LavaLust/users');
+            header('Location: /users');
             exit;
         }
 
