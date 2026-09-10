@@ -46,6 +46,8 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 
 
+
+
 $router->get('users', 'UserController::index')->middleware('auth');
 
 $router->get('users/create', 'UserController::create')->middleware('auth');
@@ -63,6 +65,4 @@ $router->get('login', 'LoginController::index');
 $router->post('login', 'LoginController::login');
 
 $router->get('logout', 'LoginController::logout');
-
-?>
 
