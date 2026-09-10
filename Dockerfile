@@ -6,7 +6,6 @@ RUN a2enmod rewrite
 
 COPY . /var/www/html
 
-# LavaLust uses the public folder
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
@@ -14,7 +13,6 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
     /etc/apache2/apache2.conf \
     /etc/apache2/conf-available/*.conf
 
-# LavaLust / public directory
 RUN printf '%s\n' \
     '<Directory /var/www/html/public>' \
     '    Options Indexes FollowSymLinks' \
@@ -29,4 +27,4 @@ RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
 
-CMD ["apache2-foreground"]git add Dockerfile
+CMD ["apache2-foreground"]
