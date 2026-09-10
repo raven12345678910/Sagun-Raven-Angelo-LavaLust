@@ -59,14 +59,16 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 
 
-$database['main'] = [
-    'driver'   => 'mysql',
-    'hostname' => 'mysql-120fb31-sagunraven126-02e9.b.aivencloud.com',
-    'port'     => '24713',
+
+
+defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
+
+return [
+    'hostname' => 'mysql-xxxxx.aivencloud.com',
     'username' => 'avnadmin',
-    'password' => 'YOUR_AIVEN_PASSWORDgit reset --soft HEAD~1',
-    'database' => 'lavalust_db',
-    'charset'  => 'utf8mb4',
-    'dbprefix' => '',
-    'path'     => ''
+    'password' => 'YOUR_NEW_AIVEN_PASSWORD',
+    'database' => 'defaultdb',
+    'port'     => 12345,
+    'driver'   => 'mysql',
+    'charset'  => 'utf8mb4'
 ];

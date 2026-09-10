@@ -1,0 +1,21 @@
+# Environment files
+.env
+.env.*
+
+# Aiven / SSL certificates
+app/certs/
+certs/
+
+# Local configuration
+database.local.php
+
+# Composer
+/vendor/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
