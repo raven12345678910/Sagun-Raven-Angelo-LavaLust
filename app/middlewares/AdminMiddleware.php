@@ -8,15 +8,13 @@ class AdminMiddleware
 {
     public function handle($next)
     {
-        // Check kung naka-login
         if (!isset($_SESSION['user'])) {
-            header('Location: /LavaLust/login');
+            header('Location: /login');
             exit;
         }
 
-        // Check kung admin
         if (($_SESSION['user']['role'] ?? '') !== 'admin') {
-            header('Location: /LavaLust/users');
+            header('Location: /users');
             exit;
         }
 

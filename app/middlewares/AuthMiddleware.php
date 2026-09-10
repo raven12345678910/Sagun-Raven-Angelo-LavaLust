@@ -9,7 +9,7 @@ class AuthMiddleware
     public function handle($next)
     {
         if (!isset($_SESSION['user'])) {
-            header('Location: /LavaLust/login');
+            header('Location: /login');
             exit;
         }
 
