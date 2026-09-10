@@ -56,35 +56,38 @@ class Config {
 	public $is_loaded =	array();
     
 
-    public function __construct()
-	{
-		$this->config = get_config();
+   public function __construct()
+{
+    $this->config = get_config();
 
-		// Set the base_url automatically if none was provided
-		if (empty($this->config['base_url']))
-		{
-			if (isset($_SERVER['SERVER_ADDR']))
-			{
-				if (strpos($_SERVER['SERVER_ADDR'], ':') !== FALSE)
-				{
-					$server_addr = '['.$_SERVER['SERVER_ADDR'].']';
-				}
-				else
-				{
-					$server_addr = $_SERVER['SERVER_ADDR'];
-				}
+    // Load middleware configuration
+    $this->load('middleware');
 
-				$base_url = (is_https() ? 'https' : 'http').'://'.$server_addr
-					.substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NAME'], basename($_SERVER['SCRIPT_FILENAME'])));
-			}
-			else
-			{
-				$base_url = 'http://localhost/';
-			}
-			$this->set('base_url', $base_url);
-		}
+    // Set the base_url automatically if none was provided
+    if (empty($this->config['base_url']))
+    {
+        if (isset($_SERVER['SERVER_ADDR']))
+        {
+            if (strpos($_SERVER['SERVER_ADDR'], ':') !== FALSE)
+            {
+                $server_addr = '['.$_SERVER['SERVER_ADDR'].']';
+            }
+            else
+            {
+                $server_addr = $_SERVER['SERVER_ADDR'];
+            }
 
-	}
+            $base_url = (is_https() ? 'https' : 'http').'://'.$server_addr
+                .substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NAME'], basename($_SERVER['SCRIPT_FILENAME'])));
+        }
+        else
+        {
+            $base_url = 'http://localhost/';
+        }
+
+        $this->set('base_url', $base_url);
+    }
+}
     /**
      * Load Config file
      *
