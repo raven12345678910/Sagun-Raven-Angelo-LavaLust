@@ -69,7 +69,7 @@ $database['main'] = [
     'port'     => getenv('DB_PORT'),
     'username' => getenv('DB_USERNAME'),
     'password' => getenv('DB_PASSWORD'),
-    'database' => getenv('DB_DATABASE'),
+    'database' => 'defaultdb',
     'charset'  => 'utf8mb4',
     'dbprefix' => '',
 ];

@@ -46,6 +46,4 @@ $router->post('login', 'LoginController::login');
 
 $router->get('logout', 'LoginController::logout')
        ->middleware('auth');
-$router->get('users/view/{id}', 'UserController::view')
-       ->middleware('auth');
-       
+
